@@ -1,11 +1,13 @@
 textarea {
+  margin-top: 30px;
   width: 80%;
-  height: 100px;
+  min-height: 100px;
   font-size: 18px;
+  overflow-y: hidden;
+  resize: none;
 }
 
 #counterText {
-  margin-top: 20px;
   font-size: 24px;
   font-weight: bold;
 }
