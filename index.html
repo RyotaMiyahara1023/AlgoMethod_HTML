@@ -1,23 +1,44 @@
 <!DOCTYPE html>
-<html>
+<html lang="ja">
 <head>
-<title>アルゴ式_HTML課題</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>レスポンシブテーブル</title>
+  <style>
+    .table-container {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 10px;
+      max-width: 100%;
+      margin: 20px auto;
+    }
+
+    .cell {
+      background-color: #e0f7fa;
+      border: 1px solid #00796b;
+      padding: 20px;
+      text-align: center;
+      font-weight: bold;
+    }
+
+    /* 横幅600px以下：縦3×横2（2列） */
+    @media (max-width: 600px) {
+      .table-container {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+  </style>
 </head>
 <body>
- <h1>アルゴ式_HTML課題</h1>
- <table class="test-striped">
-    <tr>
-      <td>1</td>
-      <td>2</td>
-    </tr>
-    <tr>
-      <td>3</td>
-      <td>4</td>
-    </tr>
-    <tr>
-      <td>5</td>
-      <td>6</td>
-    </tr>
-  </table>
+
+  <div class="table-container">
+    <div class="cell">1</div>
+    <div class="cell">2</div>
+    <div class="cell">3</div>
+    <div class="cell">4</div>
+    <div class="cell">5</div>
+    <div class="cell">6</div>
+  </div>
+
 </body>
 </html>
