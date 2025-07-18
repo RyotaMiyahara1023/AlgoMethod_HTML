@@ -1,34 +1,59 @@
-.table-container {
+/* 全体グリッドスタイル */
+.table {
   display: grid;
-  margin: 20px auto;
-  border: 1px solid #999;
-  width: 100%;
+  width: 90%;
   max-width: 600px;
+  margin: 40px auto;
+  border: 2px solid #444;
+  box-sizing: border-box;
 }
 
+/* セル共通 */
 .cell {
   border: 1px solid #999;
-  border-width: 0 1px 1px 0;
   padding: 20px;
   text-align: center;
-  font-weight: bold;
+  font-size: 1.2rem;
+  font-family: sans-serif;
+  box-sizing: border-box;
 }
 
-.cols-3 {
-  grid-template-columns: repeat(3, 1fr);
+/* ===== レスポンシブレイアウト ===== */
+
+/* 幅600px以下：2列 × 3行 */
+@media (max-width: 600px) {
+  .table {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  /* 行単位で背景色交互 */
+  .cell:nth-child(4n - 3),
+  .cell:nth-child(4n - 2) {
+    background-color: #ffffff;
+  }
+
+  .cell:nth-child(4n - 1),
+  .cell:nth-child(4n) {
+    background-color: #e0e0e0;
+  }
 }
 
-.cols-2 {
-  grid-template-columns: repeat(2, 1fr);
-}
+/* 幅601px以上：3列 × 2行 */
+@media (min-width: 601px) {
+  .table {
+    grid-template-columns: repeat(3, 1fr);
+  }
 
-.stripe-rows-3 .cell:nth-child(-n+3),
-.stripe-rows-2 .cell:nth-child(-n+2),
-.stripe-rows-2 .cell:nth-child(n+5) {
-  background-color: #e0f7fa;
-}
+  /* 行単位で背景色交互 */
+  .cell:nth-child(6n - 5),
+  .cell:nth-child(6n - 4),
+  .cell:nth-child(6n - 3) {
+    background-color: #ffffff;
+  }
 
-.stripe-rows-3 .cell:nth-child(n+4):nth-child(-n+6),
-.stripe-rows-2 .cell:nth-child(n+3):nth-child(-n+4) {
-  background-color: #f0f0f0;
+  .cell:nth-child(6n - 2),
+  .cell:nth-child(6n - 1),
+  .cell:nth-child(6n) {
+    background-color: #e0e0e0;
+  }
 }
