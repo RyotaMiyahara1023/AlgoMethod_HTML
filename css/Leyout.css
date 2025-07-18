@@ -1,0 +1,34 @@
+.table-container {
+  display: grid;
+  margin: 20px auto;
+  border: 1px solid #999;
+  width: 100%;
+  max-width: 600px;
+}
+
+.cell {
+  border: 1px solid #999;
+  border-width: 0 1px 1px 0;
+  padding: 20px;
+  text-align: center;
+  font-weight: bold;
+}
+
+.cols-3 {
+  grid-template-columns: repeat(3, 1fr);
+}
+
+.cols-2 {
+  grid-template-columns: repeat(2, 1fr);
+}
+
+.stripe-rows-3 .cell:nth-child(-n+3),
+.stripe-rows-2 .cell:nth-child(-n+2),
+.stripe-rows-2 .cell:nth-child(n+5) {
+  background-color: #e0f7fa;
+}
+
+.stripe-rows-3 .cell:nth-child(n+4):nth-child(-n+6),
+.stripe-rows-2 .cell:nth-child(n+3):nth-child(-n+4) {
+  background-color: #f0f0f0;
+}

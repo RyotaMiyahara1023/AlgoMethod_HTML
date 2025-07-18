@@ -3,97 +3,12 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>表の幅に応じて構成変更</title>
-  <style>
-    .table-container {
-      display: grid;
-      margin: 20px auto;
-      border: 1px solid #999;
-      width: 100%;
-      max-width: 599px; /* 表の大きさをここで変更 */
-    }
-
-    .cell {
-      border: 1px solid #999;
-      border-width: 0 1px 1px 0;
-      padding: 20px;
-      text-align: center;
-      font-weight: bold;
-    }
-
-    /* デフォルト: 3列（縦2×横3） */
-    .cols-3 {
-      grid-template-columns: repeat(3, 1fr);
-    }
-
-    /* 幅600px以下: 2列（縦3×横2） */
-    .cols-2 {
-      grid-template-columns: repeat(2, 1fr);
-    }
-
-    /* 行ごとのストライプ（JSでクラスを付けたあとに付ける） */
-    .stripe-rows-3 .cell:nth-child(-n+3),
-    .stripe-rows-2 .cell:nth-child(-n+2),
-    .stripe-rows-2 .cell:nth-child(n+5) {
-      background-color: #e0f7fa;
-    }
-
-    .stripe-rows-3 .cell:nth-child(n+4):nth-child(-n+6),
-    .stripe-rows-2 .cell:nth-child(n+3):nth-child(-n+4) {
-      background-color: #f0f0f0;
-    }
-
-    body {
-      margin: 0;
-      height: 80vh;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      flex-direction: column; /* 縦並びにする */
-      font-family: sans-serif;
-    }
-
-    .item {
-      margin: 15px; /* 各要素の間隔 */
-      text-align: center;
-    }
-
-    #clock {
-      font-size: 60px;
-      font-weight: bold;
-      text-align: center;
-    }
-
-    #counter {
-      font-size: 60px;
-      font-weight: bold;
-    }
-
-    .buttons {
-      display: flex;         /* 横並びに */
-      gap: 20px;             /* ボタン間の間隔 */
-      justify-content: center;
-    }
-
-    button {
-      font-size: 20px;
-      padding: 10px 20px;
-      margin: 5px;
-      cursor: pointer;
-    }
-
-    textarea {
-      width: 80%;
-      height: 100px;
-      font-size: 18px;
-    }
-
-    #counterText {
-      margin-top: 20px;
-      font-size: 24px;
-      font-weight: bold;
-    }
-  </style>
+  <title>アルゴ式_課題</title>
+  <link rel="stylesheet" href="css/style.css" />
+  <link rel="stylesheet" href="css/Leyout.css" />
+  <link rel="stylesheet" href="css/Counter.css" />
+  <link rel="stylesheet" href="css/Clock.css" />
+  <link rel="stylesheet" href="css/TextCount.css" />
 </head>
 <body>
 
@@ -105,95 +20,21 @@
     <div class="cell">5</div>
     <div class="cell">6</div>
   </div>
-  <script>
-    function updateTableLayout() {
-      const table = document.getElementById("table");
-      const width = table.offsetWidth;
-
-      // 一度クラスをリセット
-      table.classList.remove("cols-2", "cols-3", "stripe-rows-2", "stripe-rows-3");
-
-      if (width <= 600) {
-        table.classList.add("cols-2", "stripe-rows-2");
-      } else {
-        table.classList.add("cols-3", "stripe-rows-3");
-      }
-    }
-
-    // 初期化とリサイズ時にチェック
-    window.addEventListener("DOMContentLoaded", updateTableLayout);
-    window.addEventListener("resize", updateTableLayout);
-  </script>
+  <script src="js/Layout.js"></script>
 
   <div id="counter">0</div>
   <div class="buttons item">
     <button id="increment">＋</button>
     <button id="reset">Reset</button>
   </div>
-  <script>
-    let count = 0;
-
-    const counterDisplay = document.getElementById("counter");
-    const incrementBtn = document.getElementById("increment");
-    const resetBtn = document.getElementById("reset");
-
-    // ＋ボタン
-    incrementBtn.addEventListener("click", () => {
-      count++;
-      counterDisplay.textContent = count;
-    });
-
-    // Resetボタン
-    resetBtn.addEventListener("click", () => {
-      count = 0;
-      counterDisplay.textContent = count;
-    });
-  </script>
+  <script src="js/Counter.js"></script>
 
   <div id="clock">西暦----年--月--日--時--分--秒0</div>
-  <script>
-    function updateClock() {
-      const now = new Date();
-
-      const year = String(now.getFullYear()).padStart(2, "0");
-      const month = String(now.getMonth() +1).padStart(2, "0");
-      const day = String(now.getDate()).padStart(2, "0");
-      const hours = String(now.getHours()).padStart(2, "0");
-      const minutes = String(now.getMinutes()).padStart(2, "0");
-      const seconds = String(now.getSeconds()).padStart(2, "0");
-      const milliseconds = Math.floor(now.getMilliseconds() / 100); // 0〜9 の1桁
-
-      const timeString = `西暦${year}年${month}月${day}日   ${hours}時${minutes}分${seconds}秒${milliseconds}`;
-      document.getElementById("clock").textContent = timeString;
-    }
-
-    // 100msごとにupdateClockを実行
-    setInterval(updateClock, 100);
-
-    // ページ読み込み時すぐに表示
-    updateClock();
-  </script>
+  <script src="js/Clock.js"></script>
 
   <textarea id="inputText" placeholder="ここに入力してください..."></textarea>
   <div id="counterText">文字数: 0</div>
-
-  <script>
-    const textarea = document.getElementById("inputText");
-    const counter = document.getElementById("counterText");
-
-    let timeoutId = null;
-
-    textarea.addEventListener("input", () => {
-      // すでにセットされているタイマーをキャンセル
-      clearTimeout(timeoutId);
-
-      // 1秒後に実行されるタイマーを設定
-      timeoutId = setTimeout(() => {
-        const length = textarea.value.length;
-        counter.textContent = `文字数: ${length}`;
-      }, 1000); // ← ここが「1秒」の設定
-    });
-  </script>
+  <script src="js/TextCount.js"></script>
 
 </body>
 </html>
